@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ApiController extends Controller
 {
     function create(Request $request, LinkService $linkService){
-
+        $this->validateRequest($request);
         $link = $linkService->save($request->all());
 
         dd($link);
@@ -24,26 +24,48 @@ class ApiController extends Controller
     }
 
     function getOne($id, LinkService $linkService){
+        $check = $linkService->checkExistLink($id);
 
-        $link = $linkService->getLink($id);
+        if($check){
+            $link = $linkService->getLink($id);
+            dd($link);
+        }else{
+            dd(false);
+        }
 
-        dd($link);
     }
 
     function update($id, Request $request, LinkService $linkService){
+        $this->validateRequest($request);
+        $check = $linkService->checkExistLink($id);
 
-        $data = $request->all();
-        $data['id'] = $id; //??
+        if($check){
+            $data = $request->all();
+            $data['id'] = $id; //??
 
-        $link = $linkService->save($data);
+            $link = $linkService->save($data);
 
-        dd($link);
+            dd($link);
+        }else{
+            dd(false);
+        }
     }
 
     function delete($id, LinkService $linkService){
+        $check = $linkService->checkExistLink($id);
+        if($check){
+            $linkService->delete($id);
+            dd($id);
+        }else{
+            dd(false);
+        }
+    }
 
-        $linkService->delete($id);
-
-        dd($id);
+    function validateRequest($request){
+        $this->validate($request, [
+            'title' => 'required',
+            'long_url' => 'required|url',
+            'tags' => 'required|array'
+        ]);
     }
 }

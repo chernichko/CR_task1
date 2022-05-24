@@ -55,4 +55,7 @@ class LinkService
         Links::where('id','=',$id)->delete();
     }
 
+    function checkExistLink($id){
+        return Links::where('id','=',$id)->first();
+    }
 }
