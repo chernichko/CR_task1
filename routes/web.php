@@ -13,9 +13,11 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+//$router->get('/', function () use ($router) {
+//    return $router->app->version();
+//});
+
+$router->get('/', ['uses' => 'MainController@main']);
 
 $router->post('links', ['uses' => 'ApiController@create']);
 $router->get('links', ['uses' => 'ApiController@getAll']);
@@ -25,3 +27,5 @@ $router->delete('links/{id}', ['uses' => 'ApiController@delete']);
 
 $router->get('stats', ['uses' => 'StatController@getAll']);
 $router->get('stats/{id}', ['uses' => 'StatController@getOne']);
+
+$router->get('/{link:[A-Za-z0-9]+}', ['uses' => 'MainController@redirect']);

@@ -51,6 +51,10 @@ class LinkService
         return $data;
     }
 
+    function getLongLink($link){
+        return Links::select('id', 'long_url')->where('short_url','=',$link)->first();
+    }
+
     function delete($id){
         Links::where('id','=',$id)->delete();
     }
