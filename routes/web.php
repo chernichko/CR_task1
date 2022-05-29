@@ -28,4 +28,7 @@ $router->delete('links/{id}', ['uses' => 'ApiController@delete']);
 $router->get('stats', ['uses' => 'StatController@getAll']);
 $router->get('stats/{id}', ['uses' => 'StatController@getOne']);
 
+$router->get('stats', ['uses' => 'statController@getAll']);
+//$router->get('stats/{id}', ['uses' => 'statController@getOne']);
+
 $router->get('/{link:[A-Za-z0-9]+}', ['uses' => 'MainController@redirect']);

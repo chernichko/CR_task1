@@ -2,17 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Links;
 use App\Services\LinkService;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
     function create(Request $request, LinkService $linkService){
-        $this->validateRequest($request);
-        $link = $linkService->save($request->all());
 
-        dd($link);
+        $link = array();
+
+        if (count($request->all()) == count($request->all(), COUNT_RECURSIVE))
+        {
+            $this->validateRequest($request);
+            $link = $linkService->save($request->all());
+        }
+        else
+        {
+            foreach ($request->all() as $array){
+                //validate ??
+                $link_tmp = $linkService->save($array);
+                $link[] = $link_tmp;
+            }
+        }
+
+        return response()->json($link);
 
     }
 
@@ -20,7 +33,7 @@ class ApiController extends Controller
 
         $linkArray = $linkService->getListLinks();
 
-        dd($linkArray);
+        return response()->json($linkArray);
     }
 
     function getOne($id, LinkService $linkService){
@@ -28,9 +41,9 @@ class ApiController extends Controller
 
         if($check){
             $link = $linkService->getLink($id);
-            dd($link);
+            return response()->json($link);
         }else{
-            dd(false);
+            return response('Not Success');
         }
 
     }
@@ -45,9 +58,9 @@ class ApiController extends Controller
 
             $link = $linkService->save($data);
 
-            dd($link);
+            return response()->json($link);
         }else{
-            dd(false);
+            return response('Not Success');
         }
     }
 
@@ -55,9 +68,9 @@ class ApiController extends Controller
         $check = $linkService->checkExistLink($id);
         if($check){
             $linkService->delete($id);
-            dd($id);
+            return response('Success', 200);
         }else{
-            dd(false);
+            return response('Not Success');
         }
     }
 
