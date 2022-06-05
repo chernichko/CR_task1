@@ -11,8 +11,13 @@ class StatService
         $stat = new Statistic();
 
         $stat->id_url = $link;
-        $stat->user_agent = $_SERVER['HTTP_USER_AGENT'];
-        $stat->ip = $_SERVER['REMOTE_ADDR'];
+        //--->??
+        $stat->user_agent = !empty($_SERVER['HTTP_USER_AGENT'])
+            ? $_SERVER['HTTP_USER_AGENT']
+            : '';
+        $stat->ip = !empty($_SERVER['REMOTE_ADDR'])
+            ? $_SERVER['REMOTE_ADDR']
+            : '';
 
         $stat->save();
 
