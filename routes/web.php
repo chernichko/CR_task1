@@ -19,11 +19,11 @@
 
 $router->get('/', ['uses' => 'MainController@main']);
 
-$router->post('links', ['uses' => 'ApiController@create']);
-$router->get('links', ['uses' => 'ApiController@getAll']);
-$router->get('links/{id}', ['uses' => 'ApiController@getOne']);
-$router->put('links/{id}', ['uses' => 'ApiController@update']);
-$router->delete('links/{id}', ['uses' => 'ApiController@delete']);
+$router->post('links', ['uses' => 'UrlController@create']);
+$router->get('links', ['uses' => 'UrlController@getAll']);
+$router->get('links/{id}', ['uses' => 'UrlController@getOne']);
+$router->put('links/{id}', ['uses' => 'UrlController@update']);
+$router->delete('links/{id}', ['uses' => 'UrlController@delete']);
 
 $router->get('stats', ['uses' => 'StatController@getAll']);
 $router->get('stats/{id}', ['uses' => 'StatController@getOne']);

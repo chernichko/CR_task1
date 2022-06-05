@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\LinkService;
 use Illuminate\Http\Request;
 
-class ApiController extends Controller
+class UrlController extends Controller
 {
     function create(Request $request, LinkService $linkService){
 
