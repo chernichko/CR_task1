@@ -22,7 +22,7 @@ class StatController extends Controller
 //            $linkStat = $statService->getStatLink($id);
 //            return response()->json($linkStat);
         }else{
-            return response('Not Success');
+            return response('Not Success', 404);
         }
     }
 }

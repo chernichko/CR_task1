@@ -23,8 +23,5 @@ class MainController
         $longLink = $this->linkService->getLongLink($link);
         $statService->save($longLink->id);
 
-
-
-//        return redirect($longLink->long_url);
     }
 }

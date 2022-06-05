@@ -42,10 +42,9 @@ class ApiController extends Controller
         if($check){
             $link = $linkService->getLink($id);
             return response()->json($link);
-        }else{
-            return response('Not Success');
         }
 
+        return response('Not Success', 404);
     }
 
     function update($id, Request $request, LinkService $linkService){
@@ -59,9 +58,10 @@ class ApiController extends Controller
             $link = $linkService->save($data);
 
             return response()->json($link);
-        }else{
-            return response('Not Success');
         }
+
+        return response('Not Success', 404);
+
     }
 
     function delete($id, LinkService $linkService){
@@ -69,9 +69,9 @@ class ApiController extends Controller
         if($check){
             $linkService->delete($id);
             return response('Success', 200);
-        }else{
-            return response('Not Success');
         }
+
+        return response('Not Success', 404);
     }
 
     function validateRequest($request){
