@@ -52,7 +52,11 @@ class LinkService
     }
 
     function getLongLink($link){
-        return Links::select('id', 'long_url')->where('short_url','=',$link)->first();
+
+        return Links::where('short_url','=',$link)->firstOrFail();
+//            Flight::where('legs', '>', 3)->firstOrFail();
+
+//        return Links::select('id', 'long_url')->where('short_url','=',$link)->first();
     }
 
     function delete($id){
